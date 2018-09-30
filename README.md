@@ -4,6 +4,8 @@ This is a [flap display](https://en.wikipedia.org/wiki/Split-flap_display) you c
 your info-beamer hosted devices. You can easily update the text by editing the setup and
 hitting save.
 
+[![Import](https://cdn.infobeamer.com/s/img/import.png)](https://info-beamer.com/use?url=https://github.com/info-beamer/package-flap-display.git)
+
 ## Automatically updating content
 
 Alternatively you can also automatically update the content with a
