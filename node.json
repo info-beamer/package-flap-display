@@ -1,0 +1,22 @@
+{
+    "name": "Flap Display",
+    "options": [{
+        "title": "Size",
+        "ui_width": 4,
+        "name": "size",
+        "type": "select",
+        "options": [
+            [[16,  9], "16 × 9 cells"],
+            [[25, 10], "25 × 10 cells"],
+            [[32, 16], "32 × 16 cells"]
+        ],
+        "default": [25, 10]
+    }, {
+        "title": "Text",
+        "ui_width": 12,
+        "name": "text",
+        "type": "text",
+        "rows": 10,
+        "default": "This is a flappy display\nEnter your text here\n"
+    }]
+}

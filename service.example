@@ -1,0 +1,43 @@
+#!/usr/bin/python
+
+# Rename this file to `service`, so info-beamer automatically starts it
+# on your device.
+
+import time
+from ibquery import InfoBeamerQuery
+
+def main():
+    while 1:
+        ib = InfoBeamerQuery("127.0.0.1")
+
+        # connect to info-beamer. The node name is 'display' (See node.lua).
+        # There are two modes:
+        #
+        #  * Endlessly adding new lines to the output. Each line you send
+        #    will be added below the current line, wrapping around if it
+        #    reaches to bottom row.
+        #
+        #  * Atomic mode: You connect and send multiple lines. Once you
+        #    disconnect, the display will be cleared and all lines will
+        #    be added at once. This basically replaces the current output
+        #    with all lines sent. The flap display will only update
+        #    characters that changed.
+        #
+        # The mode is determined by how you connect to the info-beamer
+        # process. If you connect and attach to 'display', you're in
+        # endless mode and all lines sent will be immediately added.
+        # If you're connecting and attach to 'display/atomic', you're
+        # in atomic mode.
+
+        # Example for atommic mode: Set 3 lines, the last one being
+        # the current unix timestamp.
+        con = ib.node("display/atomic").io(raw=True)
+        con.write("Hello\nWorld\n%d\n" % time.time())
+        con.close()
+
+        time.sleep(1)
+
+if __name__ == "__main__":
+    main()
+
+
