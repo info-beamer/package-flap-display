@@ -58,7 +58,7 @@ on port 4444 and send the following data (line-breaks for
 illustration purposes only):
 
 ```
-display/atomic\n
+*raw/display/atomic\n
 Line1\n
 Line2\n
 ```
