@@ -11,8 +11,9 @@ hitting save.
 Alternatively you can also automatically update the content with a
 [package service](https://info-beamer.com/doc/package-services). In the
 source code of this package you'll find an example package service in
-the file `service.example`. If you fork the code, rename this file
-to `service`, so info-beamer recognizes it as a package service.
+the file [service.example](https://github.com/info-beamer/package-flap-display/blob/master/service.example).
+If you fork the [package code](https://github.com/info-beamer/package-flap-display), rename this file
+to `service` in your fork so info-beamer recognizes it as a package service.
 
 The code for updating the sign output automatically is quite small. Here
 is a minimal example that output 'Hello World' and the current unix
