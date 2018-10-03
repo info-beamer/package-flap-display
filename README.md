@@ -50,7 +50,7 @@ the output from outside by having an external program
 directly connecting to the info-beamer process on the
 device. You'll have to
 [enable access](https://info-beamer.com/doc/device-configuration#exposeinfobeamerports)
-for that. Not that there is no authentication, so anyone
+for that. Note that there is no authentication, so anyone
 who can reach your info-beamer device can update
 the output.
 
