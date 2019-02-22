@@ -36,8 +36,8 @@ while 1:
 See the annotated source code for more information on how
 updating exactly works.
 
-You must send your data encoded as latin1. The following
-letters are supported:
+You must send your data encoded as utf8. The following
+letters are supported by the classic mode:
 
 ```
  abcdefghijklmnopqrstuvwxyzäöü0123456789@#-.,:?!()
@@ -66,3 +66,20 @@ Line2\n
 
 If your TCP client disconnects, the sent lines will
 become active on the screen.
+
+## Adding your own style
+
+Checkout https://github.com/opendatacity/splitflap, install the
+dependencies, edit `config.js` with the charset, animation steps
+and other details. Then go to `textures/` and run
+
+```
+nodejs 1_generate_letters.js
+nodejs 2_raytrace.js
+```
+
+to generate `../images/texture_400.png`. Use the `refit.py`
+tool included in this package to rearrange the texture so it
+fits into 2048x2048 pixels. See the comment in `refit.py`
+for how to run this. Finally add your style to `node.lua` and
+`node.json`.
