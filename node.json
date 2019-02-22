@@ -12,6 +12,16 @@
         ],
         "default": [25, 10]
     }, {
+        "title": "Charset/Style",
+        "ui_width": 4,
+        "name": "style",
+        "type": "select",
+        "options": [
+            ["classic", "Classic"],
+            ["spanish1", "Spanish"]
+        ],
+        "default": "classic"
+    }, {
         "title": "Text",
         "ui_width": 12,
         "name": "text",

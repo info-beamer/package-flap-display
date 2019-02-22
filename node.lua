@@ -1,19 +1,41 @@
--- vim: set fileencoding=latin1:
+-- vim: set fileencoding=utf8:
 
 gl.setup(1920, 1080)
+local utf8 = require "utf8"
 
 -- give this node the alias 'display'
 node.alias "display"
 
 util.no_globals()
 
-local Display = function(display_cols, display_rows)
-    local t = resource.load_image "letters.png"
-    local mapping = ' abcdefghijklmnopqrstuvwxyz���0123456789@#-.,:?!()'
+local styles = {
+    classic = {
+        charset = ' abcdefghijklmnopqrstuvwxyzäöü0123456789@#-.,:?!()',
+        texture = 'classic.png',
+        rows = 13,
+        cols = 20,
+        width = 2000,
+        height = 1950,
+        steps = 5,
+    },
+    spanish1 = {
+        charset = ' abcdefghijklmnopqrstuvwxyz0123456789ñáéíóú&@#?!/()\"\':=+-…,.',
+        texture = 'spanish1.png',
+        rows = 9,
+        cols = 34,
+        width = 2040,
+        height = 720,
+        steps = 5,
+    }
+}
+
+local Display = function(display_cols, display_rows, style_name)
+    local style = styles[style_name]
+    local t = resource.load_image(style.texture)
 
     local function make_mapping(cols, rows, tw, th)
         local chars = {}
-        for i = 0, #mapping * 5 - 1 do
+        for i = 0, #style.charset * style.steps - 1 do
             local cw = tw/cols
             local ch = th/rows
             local x =           (i % cols) * cw
@@ -25,7 +47,7 @@ local Display = function(display_cols, display_rows)
         return chars
     end
 
-    local charmap = make_mapping(20, 13, 2000, 1950)
+    local charmap = make_mapping(style.cols, style.rows, style.width, style.height)
 
     local row = function(rowsize)
         local function mkzeros(n)
@@ -39,15 +61,17 @@ local Display = function(display_cols, display_rows)
         local current = mkzeros(rowsize)
         local target  = mkzeros(rowsize)
         local function set(value)
-            assert(#value <= rowsize)
-            value = value .. string.rep(" ", rowsize-#value)
+            local len = utf8.len(value)
+            if len < rowsize then
+                value = value .. string.rep(" ", rowsize-len)
+            end
             for i = 1, rowsize do
-                local char = string.sub(value,i,i):lower()
-                local pos = string.find(mapping, char, 1, true)
+                local char = utf8.lower(utf8.sub(value,i,i))
+                local pos = utf8.find(style.charset, char, 1, true)
                 if not pos then
                     pos = 1 -- character not found
                 end
-                target[i] = (pos-1) * 5
+                target[i] = (pos-1) * style.steps
             end
         end
 
@@ -55,7 +79,7 @@ local Display = function(display_cols, display_rows)
             for i = 1, rowsize do
                 if current[i] ~= target[i] then
                     current[i] = current[i] + 1
-                    if current[i] >= #mapping * 5 then
+                    if current[i] >= #style.charset * style.steps then
                         current[i] = 0
                     end
                 end
@@ -116,8 +140,8 @@ local Display = function(display_cols, display_rows)
         clear = clear;
         go_up = go_up;
         draw = draw;
-        is_size = function(w, h)
-            return display_cols == w and display_rows == h
+        needs_reinit = function(w, h, s)
+            return display_cols ~= w or display_rows ~= h or style_name ~= s
         end;
     }
 end
@@ -154,9 +178,10 @@ end)
 
 util.json_watch("config.json", function(config)
     local width, height = unpack(config.size)
-    local reinit = not display or not display.is_size(width, height)
+    local style_name = config.style or "classic"
+    local reinit = not display or display.needs_reinit(width, height, style_name)
     if reinit then
-        display = Display(width, height)
+        display = Display(width, height, style_name)
     else
         display.clear()
     end
