@@ -11,7 +11,7 @@ util.no_globals()
 local styles = {
     classic = {
         charset = ' abcdefghijklmnopqrstuvwxyzäöü0123456789@#-.,:?!()',
-        texture = 'classic.png',
+        texture = 'style-classic.png',
         rows = 13,
         cols = 20,
         width = 2000,
@@ -20,12 +20,12 @@ local styles = {
     },
     spanish1 = {
         charset = ' abcdefghijklmnopqrstuvwxyz0123456789ñáéíóú&@#?!/()\"\':=+-…,.',
-        texture = 'spanish1.png',
-        rows = 9,
+        texture = 'style-spanish1.png',
+        rows = 15,
         cols = 34,
         width = 2040,
-        height = 720,
-        steps = 5,
+        height = 1200,
+        steps = 8,
     }
 }
 
@@ -79,7 +79,7 @@ local Display = function(display_cols, display_rows, style_name)
             for i = 1, rowsize do
                 if current[i] ~= target[i] then
                     current[i] = current[i] + 1
-                    if current[i] >= #style.charset * style.steps then
+                    if current[i] >= utf8.len(style.charset) * style.steps then
                         current[i] = 0
                     end
                 end

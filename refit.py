@@ -19,6 +19,8 @@ im = Image.open(sys.argv[1])
 
 w, h = im.size
 
+print('total tiles = %d' % (anims * chars,))
+
 char_w = w / anims
 char_h = h / chars
 assert(w % anims == 0)
@@ -42,5 +44,6 @@ print("""
     cols = %d,
     width = %d,
     height = %d,
-""" % (num_rows, per_row, per_row * char_w, num_rows * char_h))
+    steps = %d,
+""" % (num_rows, per_row, per_row * char_w, num_rows * char_h, anims))
 out.save(out_name)
