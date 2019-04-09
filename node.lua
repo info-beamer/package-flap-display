@@ -176,6 +176,12 @@ node.event("disconnect", function(client)
     end
 end)
 
+util.data_mapper{
+    append = function(line)
+        display.append(line)
+    end
+}
+
 util.json_watch("config.json", function(config)
     local width, height = unpack(config.size)
     local style_name = config.style or "classic"

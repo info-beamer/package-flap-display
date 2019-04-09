@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <script src="hosted.js"></script>
+    <input type='text' class='form-control' placeholder='Text to append' id='line'>
+    <script>
+      ib.setDefaultStyle();
+      document.getElementById('line').addEventListener('keypress', function(evt) {
+        if (evt.keyCode == 13) {
+          ib.sendCommand("append", evt.target.value)
+          evt.target.value = ""
+        }
+      })
+    </script>
+  </body>
+</html>
+

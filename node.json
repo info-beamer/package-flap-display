@@ -1,5 +1,6 @@
 {
     "name": "Flap Display",
+    "control_ui": "control.html",
     "options": [{
         "title": "Size",
         "ui_width": 4,
