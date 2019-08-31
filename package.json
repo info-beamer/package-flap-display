@@ -2,5 +2,6 @@
     "name": "Flap Display",
     "desc": "A software flap display. Remote controllable",
     "author": "Florian Wesch <fw@info-beamer.com>",
-    "repository": "https://github.com/info-beamer/package-flap-display"
+    "repository": "https://github.com/info-beamer/package-flap-display",
+    "platforms": ["pi/v6", "pi/v7", "pi/v8"]
 }
