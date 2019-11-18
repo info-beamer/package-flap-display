@@ -108,7 +108,7 @@ local Display = function(display_cols, display_rows, style_name)
 
     local current = 1
     local function append(line)
-        line = line:sub(1, display_cols)
+        line = utf8.sub(line, 1, display_cols)
         rows[current].set(line)
         current = current + 1
         if current > #rows then
